@@ -3,12 +3,15 @@
 <head>
     <title>Calculator</title>
     <style>
-        body {
+        
+        #bodytag {
             display: flex;
+            text-align: center;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            margin-top: -40px;
         }
 
         .calculator {
@@ -42,7 +45,6 @@
             border-radius: 5px;
             outline: none;
             cursor: pointer;
-
         }
 
         .btn:hover {
@@ -53,7 +55,7 @@
             background-color: #444;
         }
 
-        #btn{
+        #btn {
             background-color: #f505d5;
             color: white;
             width: 100%;
@@ -67,10 +69,14 @@
     </style>
 </head>
 <body>
-    <table class="calculator">
+
+      <h1 style="text-align: center;font-weight: bold;font-size: 30px;justify-content: center; margin-bottom: -80px;margin-top: 60px;">Simple Calculator</h1>  
+ 
+    <div id="bodytag">
+    <table class="calculator" style="align-self: center;">
         <tr>
             <td colspan="4">
-                <input type="text" class="display-box" id="result" disabled>
+                <input type="text" class="display-box" id="result" >
             </td>
         </tr>
 
@@ -111,28 +117,54 @@
     </table>
 
     <script>
-        function clearScreen() {
-            document.getElementById("result").value = "";
-        }
+       const validCharsRegex = /^[0-9+\-*/.=()]+$/;
 
-        function append(value) {
-            document.getElementById("result").value += value;
-        }
+function validateKey(event) {
+    const key = event.key;
 
-        function calculate() {
-            try {
-                var input = document.getElementById("result").value;
-                var result = eval(input);
+    if (!validCharsRegex.test(key) && key !== "Backspace") {
+        event.preventDefault();
+    }
+}
 
-                if (result === Infinity || result === -Infinity) {
-                    document.getElementById("result").value = "Cannot divide by zero";
-                } else {
-                    document.getElementById("result").value = result;
-                }
-            } catch (error) {
-                document.getElementById("result").value = "Error";
+function clearScreen() {
+    document.getElementById("result").value = "";
+}
+
+function append(value) {
+    document.getElementById("result").value += value;
+}
+
+function calculate() {
+    var input = document.getElementById("result").value;
+    if (input) {
+        try {
+            var result = eval(input);
+
+            if (result === Infinity || result === -Infinity) {
+                document.getElementById("result").value = "Cannot divide by zero";
+            } else {
+                document.getElementById("result").value = result;
             }
+        } catch (error) {
+            document.getElementById("result").value = "Error";
         }
+    }
+}
+
+function validateKey(event) {
+    const key = event.key;
+
+    if (key === "Enter") {
+        event.preventDefault(); // Prevent the default behavior of the "Enter" key
+        calculate(); // Trigger the calculation function
+    } else if (!validCharsRegex.test(key) && key !== "Backspace") {
+        event.preventDefault();
+    }
+}
+
+document.getElementById("result").addEventListener("keydown", validateKey);
     </script>
+    </div>
 </body>
 </html>
