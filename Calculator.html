@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .display-box {
+            background-color: #444;
+            border: none;
+            border-radius: 10px;
+            width: 98%;
+            height: 70px;
+            font-family: sans-serif;
+            color: #fff;
+            font-size: 30px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .btn {
+            font-family: sans-serif;
+            background-color: blueviolet;
+            color: white;
+            width: 100%;
+            height: 70px;
+            font-size: 25px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+
+        }
+
+        .btn:hover {
+            background-color: #888;
+        }
+
+        .btn:active {
+            background-color: #444;
+        }
+
+        #btn{
+            background-color: #f505d5;
+            color: white;
+            width: 100%;
+            height: 70px;
+            font-size: 25px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table class="calculator">
+        <tr>
+            <td colspan="4">
+                <input type="text" class="display-box" id="result" disabled>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="(" onclick="append('(')" class="btn"></td>
+            <td><input type="button" value=")" onclick="append(')')" class="btn"></td>
+            <td><input type="button" value="%" onclick="append('%')" class="btn"></td>
+            <td><input type="button" value="CE" onclick="clearScreen()" id="btn"></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="7" onclick="append(7)" class="btn"></td>
+            <td><input type="button" value="8" onclick="append(8)" class="btn"></td>
+            <td><input type="button" value="9" onclick="append(9)" class="btn"></td>
+            <td><input type="button" value="/" onclick="append('/')" class="btn"></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="4" onclick="append(4)" class="btn"></td>
+            <td><input type="button" value="5" onclick="append(5)" class="btn"></td>
+            <td><input type="button" value="6" onclick="append(6)" class="btn"></td>
+            <td><input type="button" value="*" onclick="append('*')" class="btn"></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="1" onclick="append(1)" class="btn"></td>
+            <td><input type="button" value="2" onclick="append(2)" class="btn"></td>
+            <td><input type="button" value="3" onclick="append(3)" class="btn"></td>
+            <td><input type="button" value="-" onclick="append('-')" class="btn"></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="0" onclick="append(0)" class="btn"></td>
+            <td><input type="button" value="." onclick="append('.')" class="btn"></td>
+            <td><input type="button" value="=" onclick="calculate()" id="btn"></td>
+            <td><input type="button" value="+" onclick="append('+')" class="btn"></td>
+        </tr>
+    </table>
+
+    <script>
+        function clearScreen() {
+            document.getElementById("result").value = "";
+        }
+
+        function append(value) {
+            document.getElementById("result").value += value;
+        }
+
+        function calculate() {
+            try {
+                var input = document.getElementById("result").value;
+                var result = eval(input);
+
+                if (result === Infinity || result === -Infinity) {
+                    document.getElementById("result").value = "Cannot divide by zero";
+                } else {
+                    document.getElementById("result").value = result;
+                }
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
